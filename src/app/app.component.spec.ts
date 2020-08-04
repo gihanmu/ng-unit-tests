@@ -1,5 +1,8 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -7,6 +10,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      imports: [HttpClientTestingModule]
     }).compileComponents();
   }));
 
@@ -22,10 +26,19 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('posts-test');
   });
 
-  it('should render title', () => {
+  //this is a static button
+  it('should render a button with text click', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('posts-test app is running!');
+    const debug = fixture.debugElement.query(By.css('.btn'));
+    const compiled = debug.nativeElement;
+    expect(compiled.textContent).toContain('Click');
   });
+
+  // dynamic components
+  //https://www.digitalocean.com/community/tutorials/angular-testing-async-fakeasync
+
+
+  //Start from the service layer
+
+  //https://jasmine.github.io/api/3.5/matchers.html
 });
